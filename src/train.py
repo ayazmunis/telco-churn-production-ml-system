@@ -208,31 +208,38 @@ def select_best_model(
     candidate_results
 ):
     """
-    Select the best model based on ROC-AUC.
+    Select the production model using simple
+    ROC-AUC promotion guardrails.
     """
+
+    baseline_auc = baseline_results["metrics"]["auc"]
+    candidate_auc = candidate_results["metrics"]["auc"]
 
     print("\n" + "=" * 50)
     print("Model Promotion Decision")
     print("=" * 50)
 
-    if (
-        candidate_results["metrics"]["auc"]
-        >
-        baseline_results["metrics"]["auc"]
-    ):
+    # Promotion guardrails
+    meets_auc_threshold = candidate_auc >= 0.80
+    not_significantly_worse = (
+        candidate_auc >= baseline_auc - 0.01
+    )
 
-        print(
-            f"Promoting {candidate_results['name']}"
-        )
+    print(f"Baseline ROC-AUC : {baseline_auc:.4f}")
+    print(f"Candidate ROC-AUC: {candidate_auc:.4f}")
+    print(f"Minimum Allowed  : {baseline_auc - 0.01:.4f}")
+
+    if meets_auc_threshold and not_significantly_worse:
+
+        print(f"\nPromoting {candidate_results['name']}")
 
         return (
             candidate_results["pipeline"],
             candidate_results["name"]
         )
 
-    print(
-        f"Keeping {baseline_results['name']}"
-    )
+    print(f"\nKeeping {baseline_results['name']}")
+    print("Reason: Candidate model did not satisfy promotion guardrails.")
 
     return (
         baseline_results["pipeline"],
