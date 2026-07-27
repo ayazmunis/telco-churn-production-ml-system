@@ -5,6 +5,7 @@ Simple data quality and drift checks.
 """
 
 import pandas as pd
+from config import config
 
 def check_missing_values(df):
     """
@@ -16,9 +17,9 @@ def check_missing_values(df):
     missing = df.isnull().sum()
 
     if missing.sum() == 0:
-        print("✓ No missing values detected.")
+        print("No missing values detected.")
     else:
-        print("⚠ Missing values detected:")
+        print("Missing values detected:")
         print(missing[missing > 0])
 
 def check_schema(train_df, new_df):
@@ -39,10 +40,10 @@ def check_schema(train_df, new_df):
     else:
 
         if missing_columns:
-            print(f"⚠ Missing Columns: {missing_columns}")
+            print(f"Missing Columns: {missing_columns}")
 
         if extra_columns:
-            print(f"⚠ Unexpected Columns: {extra_columns}")
+            print(f"Unexpected Columns: {extra_columns}")
 
 def check_feature_drift(train_df, new_df):
     """
@@ -98,11 +99,11 @@ def check_monthly_charge_drift(train_df, new_df):
 def main():
 
     train_df = pd.read_csv(
-        "data/raw/telco_churn.csv"
+        config["data"]["raw_data"]
     )
 
     new_df = pd.read_csv(
-        "data/new_data/new_telco_data.csv"
+        config["data"]["new_data"]
     )
 
     check_missing_values(new_df)

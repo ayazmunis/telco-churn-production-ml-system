@@ -1,0 +1,8 @@
+project:
+  name: "Telco Churn Prediction System"
+  version: "1.0"
+
+data:
+  raw_data: "data/raw/telco_churn.csv"
+  new_data: "data/new_data/new_telco_data.csv"
+  processed_data: "data/processed/training_data.csv"

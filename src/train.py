@@ -31,6 +31,7 @@ from sklearn.metrics import (
 
 from preprocessing import preprocess_data
 from feature_engineering import create_features
+from config import config
 
 def evaluate_model(model_name, y_true, y_pred, y_prob):
     """
@@ -54,7 +55,7 @@ def load_data():
 
     print("Loading dataset...")
 
-    df = pd.read_csv("data/raw/telco_churn.csv")
+    df = pd.read_csv(config["data"]["raw_data"])
 
     print("Dataset loaded successfully.")
     print(f"Shape: {df.shape}")

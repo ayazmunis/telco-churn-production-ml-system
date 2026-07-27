@@ -7,6 +7,7 @@ Simple retraining trigger logic.
 import pandas as pd
 
 from drift_check import check_feature_drift
+from config import config
 
 def should_retrain(
     drift_detected,
@@ -33,11 +34,11 @@ def main():
     print("\nChecking Retraining Conditions...")
 
     train_df = pd.read_csv(
-        "data/raw/telco_churn.csv"
+        config["data"]["raw_data"]
     )
 
     new_df = pd.read_csv(
-        "data/new_data/new_telco_data.csv"
+        config["data"]["new_data"]
     )
 
     drift_detected = check_feature_drift(

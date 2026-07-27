@@ -7,6 +7,7 @@ Simple batch data ingestion script.
 import os
 import pandas as pd
 from datetime import datetime
+from config import config
 
 
 def ingest_data(existing_file, new_file, output_file):
@@ -55,7 +56,7 @@ def ingest_data(existing_file, new_file, output_file):
 if __name__ == "__main__":
 
     ingest_data(
-        existing_file="data/raw/telco_churn.csv",
-        new_file="data/new_data/new_telco_data.csv",
-        output_file="data/processed/training_data.csv"
+        existing_file=config["data"]["raw_data"],
+        new_file=config["data"]["new_data"],
+        output_file=config["data"]["processed_data"]
     )
