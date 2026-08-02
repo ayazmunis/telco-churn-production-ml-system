@@ -11,11 +11,6 @@ __pycache__/
 # VS Code
 .vscode/
 
-# Model files
-models/
-
-# Logs
-artifacts/logs/
 
 # OS files
 .DS_Store
