@@ -8,6 +8,8 @@ Unlike a traditional machine learning notebook, this project demonstrates the co
 
 The primary objective is to simulate how a machine learning model would be deployed and maintained in a production environment while following good software engineering practices.
 
+![System Architecture](architecture.png)
+
 ---
 
 ## Objectives
